@@ -29,3 +29,12 @@ As a user, I should be able to change the number of events displayed, so that I 
 **Given** the user is reading a list of events,
 **When** the user selects a number (8, 12, 16, 24),
 **Then** the list should collapse/expand to the number of events selected.
+
+## How I Will Use Serverless Functions
+
+ User Authentication and Authorization Checks
+
+ Creating, Updating, and Deleting Events
+
+ Real-Time Updates and Notifications with the Google Calendar
+
