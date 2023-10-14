@@ -25,6 +25,8 @@ module.exports.getAuthURL = async () => {
     scope: SCOPES,
   });
 
+console.log("Generated authURL: ", authUrl);
+
   return {
     statusCode: 200,
     headers: {
@@ -38,6 +40,7 @@ module.exports.getAuthURL = async () => {
 };
 
 module.exports.getAccessToken = async (event) => {
+  console.log("Entering getAccessToken function");
   // Decode authorization code extracted from the URL query
   const code = decodeURIComponent(`${event.pathParameters.code}`);
 
@@ -56,6 +59,7 @@ module.exports.getAccessToken = async (event) => {
   })
     .then((results) => {
       // Respond with OAuth token 
+      console.log("Results: ", results);
       return {
         statusCode: 200,
         headers: {

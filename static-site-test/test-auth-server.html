@@ -25,8 +25,6 @@
       <button id="getAuthUrlButton">Get OAuth URL</button>
       <p id="result"></p>
       <a id="authURL" href target="_blank">Click to authorize</a>
-      <!-- STEP 2 -- MAKE SURE STEP 1 WORKS BEFORE MOVING ON-->
-
       <h4>Step 2: Get your code and exchange for an access token</h4>
       <p>
         After you’re redirected back to your Meet app on GitHub, copy the code
@@ -50,14 +48,17 @@
         "https://i1di3i4dd7.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url";
 
       getAuthUrlButton.onclick = function () {
+        console.log("Clicked Get OAuth URL button");
         fetch(getAuthURL)
           .then(function (response) {
             return response.json();
           })
           .then(function (json) {
             const result = JSON.stringify(json);
+            console.log("Result:", result);
             // we get the value of authUrl
             const { authUrl } = JSON.parse(result);
+            console.log("Received authUrl:", authUrl);
             // then add it to the html
             resultElement.innerText = result;
             resultLink.href = authUrl;
@@ -73,23 +74,25 @@
         "https://i1di3i4dd7.execute-api.us-east-1.amazonaws.com/dev/api/token";
 
       getAccessToken.onclick = function () {
+        console.log("Clicked Get Token button");
         let code = codeValue.value;
 
         // if the authorization code is not URL-encoded, then URL-encode it.
         if (decodeURIComponent(code) === code) {
           code = encodeURIComponent(codeValue.value);
         }
-        const getTokenRequest = getToken +  "/" + code;
+        const getTokenRequest = getToken + "/" + code;
+        console.log("getTokenRequest:", getTokenRequest);
         fetch(getTokenRequest)
           .then(function (response) {
             return response.json();
           })
           .then(function (json) {
             accessTokenElement.innerText = JSON.stringify(json);
+            console.log("Access Token Result:", accessTokenResult);
           });
       };
       // --------------------- END OF STEP 2
-
     </script>
   </body>
 </html>
