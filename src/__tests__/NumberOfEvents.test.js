@@ -29,3 +29,16 @@ describe('<NumberOfEvents /> component', () => {
     })
 
 });
+
+describe('<NumberOfEvents /> integration', () => {
+    test('Change the number of events based on user input', async () => {
+        const AppComponent = render(<App />);
+        const AppDOM = AppComponent.container.firstChild;
+    
+        const NumberOfEventsDOM = AppDOM.querySelector('#number-of-events');
+        const NumberOfEventsInput = within(NumberOfEventsDOM).queryByRole('textbox');
+   
+        await userEvent.type(NumberOfEventsInput, '{backspace}{backspace}10');
+        expect(NumberOfEventsInput).toHaveValue('10');
+    })
+})

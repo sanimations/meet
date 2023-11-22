@@ -14,6 +14,7 @@ const NumberOfEvents = ({ setCurrentNOE }) => {
     <div id='number-of-events'>
        <h2>Number of Events: </h2>
       <input
+        id = 'number-of-events-input'
         type='text'
         value={userNumber}
         onChange={handleInputChanged}
