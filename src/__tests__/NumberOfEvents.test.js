@@ -8,7 +8,7 @@ import App from '../App';
 describe('<NumberOfEvents /> component', () => {
     let NumberOfEventsComponent;
     beforeEach(() => {
-        NumberOfEventsComponent = render(<NumberOfEvents />)
+        NumberOfEventsComponent = render(<NumberOfEvents setErrorAlert={() => { }}/>)
     });
 
     test('contains an element with the role of textbox', () => {
@@ -23,7 +23,7 @@ describe('<NumberOfEvents /> component', () => {
 
     test('Change the number of events based on what user types', async() => {
         const user = userEvent.setup();
-        NumberOfEventsComponent.rerender(<NumberOfEvents setCurrentNOE={() => {}}/>)
+        NumberOfEventsComponent.rerender(<NumberOfEvents setCurrentNOE={() => {}} setErrorAlert={() => { }}/>)
         const numberTextBox = NumberOfEventsComponent.queryByRole('textbox');
         await user.type(numberTextBox,'{backspace}{backspace}32');
     })
