@@ -1,4 +1,5 @@
-import mockData from './mock-data';
+import mockData from "./mock-data";
+import NProgress from "nprogress";
 
 /**
  *
@@ -22,9 +23,6 @@ const checkToken = async (accessToken) => {
   return result;
 };
 
-
-
-
 /**
  *
  * This function will fetch the list of all events
@@ -36,13 +34,16 @@ export const getEvents = async () => {
   if (!navigator.onLine) {
     const events = localStorage.getItem("lastEvents");
     NProgress.done();
-    return events?JSON.parse(events):[];
+    return events ? JSON.parse(events) : [];
   }
   const token = await getAccessToken();
 
   if (token) {
     removeQuery();
-    const url =  "https://f4358hhfrc.execute-api.us-east-1.amazonaws.com/dev/api/get-events" + "/" + token;
+    const url =
+      "https://f4358hhfrc.execute-api.us-east-1.amazonaws.com/dev/api/get-events" +
+      "/" +
+      token;
     const response = await fetch(url);
     const result = await response.json();
     if (result) {
@@ -50,6 +51,7 @@ export const getEvents = async () => {
       localStorage.setItem("lastEvents", JSON.stringify(result.events));
       return result.events;
     } else return null;
+  }
 };
 
 const removeQuery = () => {
@@ -70,7 +72,9 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    'https://f4358hhfrc.execute-api.us-east-1.amazonaws.com/dev/api/token' + '/' + encodeCode
+    "https://f4358hhfrc.execute-api.us-east-1.amazonaws.com/dev/api/token" +
+      "/" +
+      encodeCode
   );
   const { access_token } = await response.json();
   access_token && localStorage.setItem("access_token", access_token);
@@ -79,7 +83,7 @@ const getToken = async (code) => {
 };
 
 export const getAccessToken = async () => {
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = localStorage.getItem("access_token");
   const tokenCheck = accessToken && (await checkToken(accessToken));
 
   if (!accessToken || tokenCheck.error) {
